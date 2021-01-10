@@ -25,14 +25,9 @@ namespace AspNetCoreState
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddSession(options =>
-            {
-                options.IdleTimeout = TimeSpan.FromMinutes(20);
-                options.Cookie.HttpOnly = true;
-                options.Cookie.IsEssential = true;
-            });
             services.AddHttpContextAccessor();
-            services.AddScoped(sp => sp.GetService<IHttpContextAccessor>().HttpContext.Session);
+            services.AddScoped(sp => sp.GetService<IHttpContextAccessor>().HttpContext.Request.Cookies);
+            services.AddScoped(sp => sp.GetService<IHttpContextAccessor>().HttpContext.Response.Cookies);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,7 +50,6 @@ namespace AspNetCoreState
 
             app.UseAuthorization();
 
-            app.UseSession();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

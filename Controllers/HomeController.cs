@@ -12,31 +12,25 @@ namespace AspNetCoreState.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ISession session;
-        public HomeController(ISession session)
-        {
-            this.session = session;
-        }
-
-        public IActionResult Index()
+        public IActionResult Index([FromServices] IRequestCookieCollection cookies)
         {
             var model = new YearViewModel
             {
-                Year = session.GetInt32("Year")
+                Year = cookies.TryGetValue("Year", out string year) ? Convert.ToInt32(year) : null
             };
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult Index(YearViewModel inputModel)
+        public IActionResult Index(YearViewModel inputModel, [FromServices] IResponseCookies cookies)
         {
             if (inputModel.Year.HasValue)
             {
-                session.SetInt32("Year", inputModel.Year.Value);
+                cookies.Append("Year", inputModel.Year.ToString(), new CookieOptions { HttpOnly = true, IsEssential = true, MaxAge = TimeSpan.FromDays(30) });
             }
             else
             {
-                session.Remove("Year");
+                cookies.Delete("Year");
             }
             
             return RedirectToAction(nameof(Index));
