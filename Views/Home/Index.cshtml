@@ -1,0 +1,25 @@
+﻿@model YearViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>
+        <form method="post">
+            <label asp-for="Year"></label>
+            <select asp-for="Year">
+                <option></option>
+                <option>2021</option>
+                <option>2020</option>
+                <option>2019</option>
+                <option>2018</option>
+            </select>
+            <button type="submit">Select</button>
+        </form>
+    </p>
+    @if (Model.Year.HasValue)
+    {
+        <h2>You selected year @Model.Year</h2>
+    }
+</div>
