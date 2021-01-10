@@ -1,4 +1,4 @@
-# ASP.NET Core State persistence across request
+# ASP.NET Core State persistence across requests
 This is a ASP.NET Core application for .NET 5.
 
 This branch showcases the use of the **ISession** object to persist a value across requests.
@@ -7,7 +7,7 @@ This branch showcases the use of the **ISession** object to persist a value acro
 
 ![state.gif](state.gif)
 
- * The session service is configured in the [Startup.cs](Startup.cs#L28) file, within the `ConfigureService` method;
+ * The session service is configured in the [Startup.cs](Startup.cs#L28) file, within the `ConfigureServices` method;
  * The session middleware is also used in the [Startup.cs](Startup.cs#L58) file, within the `Configure` method;
  * Use the `ISession` object from the [HomeController.cs](Controllers/HomeController.cs#L18).
 
