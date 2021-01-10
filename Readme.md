@@ -1,4 +1,4 @@
-# ASP.NET Core State persistence across request
+# ASP.NET Core State persistence across requests
 This is a ASP.NET Core application for .NET 5.
 
 This branch showcases the use of the **cookies** to persist a value across requests.
