@@ -31,6 +31,10 @@ namespace AspNetCoreState
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
+            services.Configure<CookiePolicyOptions>(options => {
+                // Cookie policy is enabled on all HTTP requests
+                options.CheckConsentNeeded = context => true;
+            });
             services.AddHttpContextAccessor();
             services.AddScoped(sp => sp.GetService<IHttpContextAccessor>().HttpContext.Session);
         }
@@ -48,6 +52,7 @@ namespace AspNetCoreState
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseCookiePolicy();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
